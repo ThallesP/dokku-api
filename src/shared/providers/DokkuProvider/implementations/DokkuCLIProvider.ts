@@ -11,8 +11,16 @@ export class DokkuCLIProvider implements IDokkuProvider {
     this.DOKKU_CLI_PATH = configService.get('DOKKU_CLI_PATH');
   }
 
+  async listApps() {
+    const stdout = execSync(`${this.DOKKU_CLI_PATH} apps:list`);
+
+    return stdout
+      .toString()
+      .split('\n')
+      .filter((appLine) => appLine !== '=====> My Apps');
+  }
+
   async runCommand(command: string): Promise<void> {
-    const stdout = execSync(`${this.DOKKU_CLI_PATH} ${command}`);
-    console.log(stdout.toString());
+    execSync(`${this.DOKKU_CLI_PATH} ${command}`);
   }
 }
