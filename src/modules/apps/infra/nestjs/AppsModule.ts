@@ -4,13 +4,23 @@ import { DokkuCLIProvider } from '../../../../shared/providers/DokkuProvider/imp
 import { CreateAppController } from '../../useCases/createApp/CreateAppController';
 import { CreateAppUseCase } from '../../useCases/createApp/CreateAppUseCase';
 import { ConfigModule } from '@nestjs/config';
+import { FindAppController } from '../../useCases/findApp/FindAppController';
+import { SyncAppWithGitUseCase } from '../../useCases/syncAppWithGit/SyncAppWithGitUseCase';
+import { SyncAppWithGitController } from '../../useCases/syncAppWithGit/SyncAppWithGitController';
+import { FindAppUseCase } from '../../useCases/findApp/FindAppUseCase';
 
 @Module({
   imports: [ConfigModule.forRoot()],
-  controllers: [CreateAppController],
+  controllers: [
+    CreateAppController,
+    FindAppController,
+    SyncAppWithGitController,
+  ],
   providers: [
     //UseCases
     CreateAppUseCase,
+    FindAppUseCase,
+    SyncAppWithGitUseCase,
 
     // Providers
     {
