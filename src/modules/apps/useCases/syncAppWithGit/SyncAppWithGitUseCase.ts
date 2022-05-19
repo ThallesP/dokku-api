@@ -6,7 +6,9 @@ import { ISyncAppWithGitDTO } from '../../dtos/ISyncAppWithGitDTO';
 export class SyncAppWithGitUseCase {
   constructor(@Inject(IDokkuProvider) private dokkuProvider: IDokkuProvider) {}
 
-  async execute(app_name: string, { git_url }: ISyncAppWithGitDTO) {
-    await this.dokkuProvider.runCommand(`git:sync ${app_name} ${git_url}`);
+  async execute(app_name: string, { git_url, ref }: ISyncAppWithGitDTO) {
+    await this.dokkuProvider.runCommand(
+      `git:sync ${app_name} ${git_url} ${ref}`,
+    );
   }
 }
