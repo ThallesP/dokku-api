@@ -1,5 +1,5 @@
 export interface IDokkuProvider {
-  runCommand(command: string): Promise<void>;
+  runCommand(command: string, waitForCommandToEnd?: boolean): Promise<void>;
   listApps(): Promise<string[]>;
 }
 

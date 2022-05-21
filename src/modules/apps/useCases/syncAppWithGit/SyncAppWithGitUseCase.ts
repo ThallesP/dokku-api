@@ -8,7 +8,7 @@ export class SyncAppWithGitUseCase {
 
   async execute(app_name: string, { git_url, ref }: ISyncAppWithGitDTO) {
     await this.dokkuProvider.runCommand(
-      `git:sync ${app_name} ${git_url} ${ref}`,
+      `git:sync --build ${app_name} ${git_url} ${ref}`,
     );
   }
 }
