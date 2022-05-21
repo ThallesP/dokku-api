@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IDokkuProvider } from '../IDokkuProvider';
-import net, { Socket } from 'net';
+import * as net from 'net';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -38,17 +38,17 @@ export class DokkuDaemonProvider implements IDokkuProvider {
     }
   }
 
-  private connectToSocket(): Promise<Socket> {
+  private connectToSocket(): Promise<net.Socket> {
     const socket = net.createConnection(this.DOKKU_DAEMON_SOCKET_PATH);
 
-    return new Promise<Socket>((resolve, reject) => {
+    return new Promise<net.Socket>((resolve, reject) => {
       socket.once('connect', () => resolve(socket));
 
       socket.once('error', (err) => reject(err));
     });
   }
 
-  private waitUntilData(socket: Socket): Promise<string> {
+  private waitUntilData(socket: net.Socket): Promise<string> {
     return new Promise<string>((resolve) => {
       socket.once('data', (data) => resolve(data.toString()));
     });
