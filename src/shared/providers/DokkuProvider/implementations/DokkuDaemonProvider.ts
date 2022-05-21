@@ -16,7 +16,7 @@ export class DokkuDaemonProvider implements IDokkuProvider {
   async listApps(): Promise<string[]> {
     const socket = await this.connectToSocket();
 
-    socket.write(`apps:list`);
+    socket.write('apps:list\n');
 
     const data = await this.waitUntilData(socket);
     socket.end();
@@ -30,7 +30,7 @@ export class DokkuDaemonProvider implements IDokkuProvider {
   ): Promise<void> {
     const socket = await this.connectToSocket();
 
-    socket.write(command);
+    socket.write(`${command}\n`);
 
     if (waitForCommandToEnd) {
       await this.waitUntilData(socket);
