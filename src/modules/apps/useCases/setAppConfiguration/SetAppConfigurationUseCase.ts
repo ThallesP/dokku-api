@@ -4,13 +4,18 @@ import { IDokkuProvider } from '../../../../shared/providers/DokkuProvider/IDokk
 interface ISetAppConfiguration {
   configVars: string[];
   restartApp?: boolean;
+  appName: string;
 }
 
 @Injectable()
 export class SetAppConfigurationUseCase {
   constructor(@Inject(IDokkuProvider) private dokkuProvier: IDokkuProvider) {}
 
-  async execute({ restartApp = true, configVars }: ISetAppConfiguration) {
+  async execute({
+    restartApp = true,
+    configVars,
+    appName,
+  }: ISetAppConfiguration) {
     for (const configVar of configVars) {
       const indexPlusOne = configVars.indexOf(configVar) + 1;
 
@@ -20,7 +25,7 @@ export class SetAppConfigurationUseCase {
       }
 
       await this.dokkuProvier.runCommand(
-        `config:set --no-restart ${configVar}`,
+        `config:set --no-restart ${appName} ${configVar}`,
       );
     }
   }
