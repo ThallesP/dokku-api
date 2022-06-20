@@ -8,6 +8,8 @@ import { SyncAppWithGitUseCase } from '../../useCases/syncAppWithGit/SyncAppWith
 import { SyncAppWithGitController } from '../../useCases/syncAppWithGit/SyncAppWithGitController';
 import { FindAppUseCase } from '../../useCases/findApp/FindAppUseCase';
 import { DokkuDaemonProvider } from '../../../../shared/providers/DokkuProvider/implementations/DokkuDaemonProvider';
+import { SetAppConfigurationController } from '../../useCases/setAppConfiguration/SetAppConfigurationController';
+import { SetAppConfigurationUseCase } from '../../useCases/setAppConfiguration/SetAppConfigurationUseCase';
 
 @Module({
   imports: [ConfigModule.forRoot()],
@@ -15,12 +17,14 @@ import { DokkuDaemonProvider } from '../../../../shared/providers/DokkuProvider/
     CreateAppController,
     FindAppController,
     SyncAppWithGitController,
+    SetAppConfigurationController,
   ],
   providers: [
     //UseCases
     CreateAppUseCase,
     FindAppUseCase,
     SyncAppWithGitUseCase,
+    SetAppConfigurationUseCase,
 
     // Providers
     {
