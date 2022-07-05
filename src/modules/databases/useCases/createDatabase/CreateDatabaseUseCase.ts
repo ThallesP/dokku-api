@@ -7,10 +7,13 @@ export class CreateDatabaseUseCase {
   constructor(@Inject(IDokkuProvider) private dokkuProvider: IDokkuProvider) {}
 
   async execute({ type, name, appLink }: ICreateDatabaseDTO) {
-    await this.dokkuProvider.runCommand(`${type}:create ${name}`);
+    await this.dokkuProvider.runCommand(`${type}:create ${name}`, true);
 
     if (appLink) {
-      await this.dokkuProvider.runCommand(`${type}:link ${name} ${appLink}`);
+      await this.dokkuProvider.runCommand(
+        `${type}:link ${name} ${appLink}`,
+        true,
+      );
     }
 
     return { type, name };
