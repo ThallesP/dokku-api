@@ -6,12 +6,12 @@ import { IDokkuProvider } from '../../../../shared/providers/DokkuProvider/IDokk
 export class CreateDatabaseUseCase {
   constructor(@Inject(IDokkuProvider) private dokkuProvider: IDokkuProvider) {}
 
-  async execute({ type, name, appLink }: ICreateDatabaseDTO) {
+  async execute({ type, name, appLink, restartApp }: ICreateDatabaseDTO) {
     await this.dokkuProvider.runCommand(`${type}:create ${name}`, true);
 
     if (appLink) {
       await this.dokkuProvider.runCommand(
-        `${type}:link ${name} ${appLink}`,
+        `${type}:link ${name} ${appLink}${restartApp ? ' --no-restart' : ''}`,
         true,
       );
     }
